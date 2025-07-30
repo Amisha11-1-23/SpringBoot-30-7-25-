@@ -5,13 +5,14 @@ import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import in.mindcraft.entity.Emp;
 
 @Service
 public class EmpService {
-
+	
 	public static List<Emp> list=new ArrayList<>();
 	
 	static {
@@ -19,7 +20,7 @@ public class EmpService {
 		list.add(new Emp(102,"Shreyash","HR"));
 	}
 	
-	public List<Emp> getAllEmp(){
+	public List<Emp> getAllEmp(){		
 		return list;
 	}
 	
@@ -31,14 +32,16 @@ public class EmpService {
 	
 	public void addEmp(Emp e) {
 		list.add(e);
+		
 	}
 	
 	public void deleteEmp(int id) {
 		list=list.stream().filter(emp->emp.getId()!=id).collect(Collectors.toList());
+		
 	}
 	
 	public void updateEmp(int id,Emp emp) {
-		list=list.stream().map(e->{
+	list=list.stream().map(e->{
 			if(e.getId()==id) {
 				e.setName(emp.getName());
 				e.setDeptname(emp.getDeptname());
@@ -47,4 +50,5 @@ public class EmpService {
 		}).collect(Collectors.toList());
 	}
 }
+
 

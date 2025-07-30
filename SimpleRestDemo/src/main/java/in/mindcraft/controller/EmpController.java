@@ -49,7 +49,7 @@ public class EmpController {
 	}
 	
 	@DeleteMapping("/emp/{empId}")
-	public void delteEMp(@PathVariable("empID") int empId) {
+	public void deleteEMp(@PathVariable("empID") int empId) {
 		this.empService.deleteEmp(empId);
 	}
 	
