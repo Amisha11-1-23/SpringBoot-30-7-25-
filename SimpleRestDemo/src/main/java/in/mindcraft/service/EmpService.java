@@ -1,0 +1,50 @@
+package in.mindcraft.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
+import in.mindcraft.entity.Emp;
+
+@Service
+public class EmpService {
+
+	public static List<Emp> list=new ArrayList<>();
+	
+	static {
+		list.add(new Emp(101,"Vedant","IT"));
+		list.add(new Emp(102,"Shreyash","HR"));
+	}
+	
+	public List<Emp> getAllEmp(){
+		return list;
+	}
+	
+	public Emp getEmpById(int id) {
+		Emp emp=null;
+		emp=list.stream().filter(e->e.getId()==id).findFirst().get();
+		return emp;
+	}
+	
+	public void addEmp(Emp e) {
+		list.add(e);
+	}
+	
+	public void deleteEmp(int id) {
+		list=list.stream().filter(emp->emp.getId()!=id).collect(Collectors.toList());
+	}
+	
+	public void updateEmp(int id,Emp emp) {
+		list=list.stream().map(e->{
+			if(e.getId()==id) {
+				e.setName(emp.getName());
+				e.setDeptname(emp.getDeptname());
+			}
+			return e;
+		}).collect(Collectors.toList());
+	}
+}
+
